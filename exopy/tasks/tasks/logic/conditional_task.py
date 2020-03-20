@@ -9,7 +9,7 @@
 """Task equivalent to an if statement.
 
 """
-from atom.api import (Unicode)
+from atom.api import (Unicode, set_default)
 
 from ..validators import Feval
 from ..base_tasks import ComplexTask
@@ -21,11 +21,16 @@ class ConditionalTask(ComplexTask):
     """
     #: Condition to meet in order to perform the children tasks.
     condition = Unicode().tag(pref=True, feval=Feval())
+    
+    database_entries = set_default({'condition': False})
 
     def perform(self):
         """Call the children task if the condition evaluate to True.
 
         """
+        
+        self.write_in_database('condition', self.format_and_eval_string(self.condition))
+        
         if self.format_and_eval_string(self.condition):
             for child in self.children:
                 child.perform_()
