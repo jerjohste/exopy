@@ -649,7 +649,8 @@ class Measurement(HasPrefAtom):
         """
         entries = new.database_entries.copy()
         entries.update({'meas_name': self.name, 'meas_id': self.id,
-                        'meas_date': '', 'meas_time': ''})
+                        'meas_date': str(date.today()), 
+                        'meas_time': datetime.now().time().strftime("%H-%M-%S")})
         new.database_entries = entries
 
     def _default_dependencies(self):

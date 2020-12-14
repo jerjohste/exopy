@@ -23,7 +23,7 @@ class IterableLoopInterface(TaskInterface):
 
     """
     #: Iterable on which to iterate.
-    iterable = Unicode('range(10)').tag(pref=True, feval=Feval(types=Iterable))
+    iterable = Unicode('range(10)').tag(pref=True)#, feval=Feval(types=Iterable)) # commented otherwise impossible to run loop based on imported array
 
     def check(self, *args, **kwargs):
         """Check that the iterable member evaluation does yield an iterable.
